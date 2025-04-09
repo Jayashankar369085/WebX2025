@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rolls Royce Customization | CruzeLab</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="Images/pnghq.com-cropped-favicon-img-vibra-4.png" type="image/png">
+  <style>
+    #carImage {
+      transition: opacity 0.5s ease-in-out;
+      width: 100%;
+      max-width: 800px;
+      max-height: 500px;
+      object-fit: cover;
+      border-radius: 0.75rem;
+      aspect-ratio: 16 / 9;
+    }
+  </style>
+  <script>
+    function updateCarImage() {
+      const color = document.getElementById('wrapColor').value;
+      const img = document.getElementById('carImage');
+      const colorMap = {
+        white: 'https://www.ohcars.co.uk/wp-content/uploads/2023/01/IMG-20230105-WA0006.jpg',
+        blue: 'https://www.motorshow.me/uploadImages/ExtImages/images1/IMG-20230206-WA0095-638126858352430816.jpg',
+        black: 'https://cdn.wallpapersafari.com/7/29/qGsSDB.jpg',
+        gold: 'https://gtspirit.com/wp-content/gallery/rolls-royce-phantom-gold-edition/rolls-royce-gold-1.jpg'
+      };
+      img.style.opacity = 0;
+      setTimeout(() => {
+        img.src = colorMap[color];
+        img.onload = () => img.style.opacity = 1;
+      }, 300);
+    }
+
+    function updatePrice() {
+      let total = 68000000;
+      let breakdown = '<p>Base Price: ₹6,80,00,000</p>';
+      document.querySelectorAll('input[type=checkbox]:checked, input[type=radio]:checked').forEach(input => {
+        const label = input.parentElement.textContent.trim();
+        const price = parseInt(input.dataset.price || 0);
+        total += price;
+        breakdown += `<p>+ ${label}: ₹${price.toLocaleString()}</p>`;
+      });
+      document.getElementById('priceBreakdown').innerHTML = breakdown + `<hr class='my-2'><p class='text-xl font-bold text-blue-300'>Total: ₹${total.toLocaleString()}</p>`;
+    }
+
+    function toggleAllCheckboxes(state) {
+      document.querySelectorAll('input[type=checkbox]').forEach(input => {
+        input.checked = state;
+      });
+      updatePrice();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('input[type=checkbox], input[type=radio]').forEach(input => {
+        input.addEventListener('change', updatePrice);
+      });
+      updatePrice();
+    });
+  </script>
+</head>
+<body class="bg-gray-900 text-white">
+  <div class="p-6">
+    <h1 class="text-4xl font-bold text-center mb-8">Customize Your Rolls Royce</h1>
+
+    <div class="w-full flex justify-center items-center mb-8">
+      <div class="max-w-4xl w-full overflow-hidden rounded-xl shadow-lg">
+       
+          <img id="carImage" src="https://www.carlogos.org/logo/Rolls-Royce-symbol-2048x2048.png" alt="Rolls Royce Preview" />
+      
+      </div>
+    </div>
+
+    
+    <form class="max-w-6xl mx-auto bg-gray-800 p-10 rounded-xl space-y-12 border border-blue-300 shadow-xl">
+      
+    
+      <div>
+        <h2 class="text-2xl font-bold mb-4 text-blue-300">🎨 Wrap Color</h2>
+        <select id="wrapColor" onchange="updateCarImage()" class="w-full p-3 rounded bg-gray-900 text-white border border-gray-600">
+          <option value="white">Pearl White</option>
+          <option value="blue">Midnight Blue</option>
+          <option value="black">Royal Black</option>
+          <option value="gold">Metallic Gold</option>
+        </select>
+      </div>
+
+      <div>
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-2xl font-bold text-blue-300">✨ Luxury Features</h2>
+          <div class="space-x-2">
+            <button type="button" onclick="toggleAllCheckboxes(true)" class="bg-blue-500 hover:bg-blue-600 text-sm px-4 py-2 rounded">Select All</button>
+            <button type="button" onclick="toggleAllCheckboxes(false)" class="bg-gray-700 hover:bg-gray-600 text-sm px-4 py-2 rounded">Deselect All</button>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <label class="flex items-center space-x-2"><input type="checkbox" data-price="200000" /> <span>Starlight Roof</span></label>
+          <label class="flex items-center space-x-2"><input type="checkbox" data-price="250000" /> <span>Massage Seats</span></label>
+          <label class="flex items-center space-x-2"><input type="checkbox" data-price="180000" /> <span>Rear Entertainment System</span></label>
+          <label class="flex items-center space-x-2"><input type="checkbox" data-price="150000" /> <span>Champagne Fridge</span></label>
+          <label class="flex items-center space-x-2"><input type="checkbox" data-price="125000" /> <span>Spirit of Ecstasy Illumination</span></label>
+          <label class="flex items-center space-x-2"><input type="checkbox" data-price="95000" /> <span>Power Coach Doors</span></label>
+        </div>
+      </div>
+
+     
+      <div>
+        <h2 class="text-2xl font-bold mb-4 text-blue-300">🛋️ Interior Themes</h2>
+        <div class="space-y-3">
+          <label class="flex items-center space-x-2"><input type="radio" name="interior" data-price="100000" /> <span>Ivory White with Walnut Finish</span></label>
+          <label class="flex items-center space-x-2"><input type="radio" name="interior" data-price="125000" /> <span>Charcoal Leather with Star Panel</span></label>
+          <label class="flex items-center space-x-2"><input type="radio" name="interior" data-price="110000" /> <span>Two-tone Tan & Black with Premium Audio</span></label>
+        </div>
+      </div>
+
+      <div id="priceBreakdown" class="bg-gray-900 p-6 mt-10 rounded-lg border border-blue-400 text-white text-md">
+     
+      </div>
+
+  
+      <div class="text-center pt-6">
+        <a href="customerform.html" class="bg-yellow-500 hover:bg-yellow-600 text-white px-10 py-4 rounded-full text-xl font-semibold shadow-lg inline-block">
+          Submit Customization
+        </a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

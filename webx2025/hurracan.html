@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lamborghini Huracan Customization | CruzeLab</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="Images/pnghq.com-cropped-favicon-img-vibra-4.png" type="image/png">
+  <style>
+    #carImage {
+      transition: opacity 0.5s ease-in-out;
+      width: 100%;
+      max-width: 800px;
+      max-height: 500px;
+      object-fit: cover;
+      border-radius: 0.75rem;
+      aspect-ratio: 16 / 9;
+    }
+  </style>
+  <script>
+    function updateCarImage() {
+      const color = document.getElementById('wrapColor').value;
+      const img = document.getElementById('carImage');
+      const colorMap = {
+        black: 'https://s1.cdn.autoevolution.com/images/news/gallery/nero-nemesis-matte-black-lamborghini-huracan-performante-looks-stunning_1.jpg',
+        red: 'https://performancedrive.com.au/wp-content/uploads/2019/01/Lamborghini-Huracan-Evo-rear.jpg',
+        yellow: 'https://images.hdqwalls.com/wallpapers/yellow-lamborghini-huracan-front-4k-ej.jpg',
+        green: 'https://st.automobilemag.com/uploads/sites/5/2019/02/Lamborghini-Huracan-Evo-Spyder-rear-three-quarter-view.jpg'
+      };
+      img.style.opacity = 0;
+      setTimeout(() => {
+        img.src = colorMap[color];
+        img.onload = () => img.style.opacity = 1;
+      }, 300);
+    }
+
+    function updatePrice() {
+      let total = 34000000;
+      let breakdown = '<p>Base Price: ₹3,40,00,000</p>';
+      document.querySelectorAll('input[type=checkbox]:checked, input[type=radio]:checked').forEach(input => {
+        const label = input.parentElement.textContent.trim();
+        const price = parseInt(input.dataset.price || 0);
+        total += price;
+        breakdown += `<p>+ ${label}: ₹${price.toLocaleString()}</p>`;
+      });
+      document.getElementById('priceBreakdown').innerHTML = breakdown + `<hr class='my-2'><p class='text-xl font-bold text-green-400'>Total: ₹${total.toLocaleString()}</p>`;
+    }
+
+    function toggleAllCheckboxes(state) {
+      document.querySelectorAll('input[type=checkbox]').forEach(input => {
+        input.checked = state;
+      });
+      updatePrice();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('input[type=checkbox], input[type=radio]').forEach(input => {
+        input.addEventListener('change', updatePrice);
+      });
+      updatePrice();
+    });
+  </script>
+</head>
+<body class="bg-gray-900 text-white">
+  <div class="p-6">
+    <h1 class="text-4xl font-bold text-center mb-8">Customize Your Lamborghini Huracan</h1>
+
+
+    <div class="w-full flex justify-center items-center mb-8">
+      <div class="max-w-4xl w-full overflow-hidden rounded-xl shadow-lg">
+        
+          <img id="carImage" src="https://logos-world.net/wp-content/uploads/2021/03/Lamborghini-Logo.png" alt="Lamborghini Preview" />
+        
+      </div>
+    </div>
+
+
+    <form class="max-w-6xl mx-auto bg-gray-800 p-10 rounded-xl space-y-12 border border-green-400 shadow-xl">
+
+  
+      <div>
+        <h2 class="text-2xl font-bold mb-4 text-green-400">🎨 Wrap Color</h2>
+        <select id="wrapColor" onchange="updateCarImage()" class="w-full p-3 rounded bg-gray-900 text-white border border-gray-600">
+          <option value="black">Matte Black</option>
+          <option value="red">Flame Red</option>
+          <option value="yellow">Gloss Yellow</option>
+          <option value="green">Racing Green</option>
+        </select>
+      </div>
+
+   
+      <div>
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-2xl font-bold text-green-400">🏎️ Performance Enhancements</h2>
+          <div class="space-x-2">
+            <button type="button" onclick="toggleAllCheckboxes(true)" class="bg-green-500 hover:bg-green-600 text-sm px-4 py-2 rounded">Select All</button>
+            <button type="button" onclick="toggleAllCheckboxes(false)" class="bg-gray-700 hover:bg-gray-600 text-sm px-4 py-2 rounded">Deselect All</button>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <label class="flex items-center space-x-2"><input type="checkbox" data-price="150000" /> <span>Turbo Boost Kit</span></label>
+          <label class="flex items-center space-x-2"><input type="checkbox" data-price="125000" /> <span>Racing Exhaust</span></label>
+          <label class="flex items-center space-x-2"><input type="checkbox" data-price="180000" /> <span>Carbon Fiber Hood</span></label>
+          <label class="flex items-center space-x-2"><input type="checkbox" data-price="100000" /> <span>Suspension Kit</span></label>
+          <label class="flex items-center space-x-2"><input type="checkbox" data-price="95000" /> <span>Launch Control</span></label>
+          <label class="flex items-center space-x-2"><input type="checkbox" data-price="120000" /> <span>Track ECU Remap</span></label>
+        </div>
+      </div>
+
+  
+      <div>
+        <h2 class="text-2xl font-bold mb-4 text-green-400">🛋️ Interior Styling</h2>
+        <div class="space-y-3">
+          <label class="flex items-center space-x-2"><input type="radio" name="interior" data-price="75000" /> <span>Red Alcantara + LED Mood Lighting</span></label>
+          <label class="flex items-center space-x-2"><input type="radio" name="interior" data-price="90000" /> <span>Carbon Black + Starlight Roof</span></label>
+          <label class="flex items-center space-x-2"><input type="radio" name="interior" data-price="95000" /> <span>Beige Leather + Sound Boost</span></label>
+        </div>
+      </div>
+
+      <div id="priceBreakdown" class="bg-gray-900 p-6 mt-10 rounded-lg border border-green-500 text-white text-md">
+
+      </div>
+
+
+      <div class="text-center pt-6">
+        <a href="customerform.html" class="bg-yellow-500 hover:bg-yellow-600 text-white px-10 py-4 rounded-full text-xl font-semibold shadow-lg inline-block">
+          Submit Customization
+        </a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finalize Customization | CruzeLab</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="Images/pnghq.com-cropped-favicon-img-vibra-4.png" type="image/png">
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      alert("Thank you for your customization request! We'll get back to you shortly.");
+      setTimeout(() => {
+        window.location.href = "homepage.html"; 
+      }, 3000);
+    }
+  </script>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+  <div class="min-h-screen flex flex-col justify-center items-center px-6">
+    <div class="bg-gray-800 p-10 rounded-xl w-full max-w-xl border border-yellow-500 shadow-2xl">
+      <h1 class="text-3xl font-bold text-center text-yellow-400 mb-6">Confirm Your Details</h1>
+      <form onsubmit="handleSubmit(event)" class="space-y-5">
+        <div>
+          <label class="block mb-2 font-semibold">Full Name</label>
+          <input type="text" required class="w-full p-3 rounded bg-gray-900 text-white border border-gray-600" />
+        </div>
+        <div>
+          <label class="block mb-2 font-semibold">Address</label>
+          <textarea required rows="3" class="w-full p-3 rounded bg-gray-900 text-white border border-gray-600"></textarea>
+        </div>
+        <div>
+          <label class="block mb-2 font-semibold">Contact Number</label>
+          <input type="tel" required class="w-full p-3 rounded bg-gray-900 text-white border border-gray-600" />
+        </div>
+        <div>
+          <label class="block mb-2 font-semibold">Email Address</label>
+          <input type="email" required class="w-full p-3 rounded bg-gray-900 text-white border border-gray-600" />
+        </div>
+        <div class="text-center pt-4">
+          <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 px-8 py-3 rounded-full text-lg font-bold text-white shadow-lg">
+            Submit & Finish
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

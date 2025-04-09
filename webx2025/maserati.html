@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maserati Customization | CruzeLab</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="Images/pnghq.com-cropped-favicon-img-vibra-4.png" type="image/png">
+  <style>
+    #carImage {
+      transition: opacity 0.5s ease-in-out;
+      width: 100%;
+      max-width: 800px;
+      max-height: 500px;
+      object-fit: cover;
+      border-radius: 0.75rem;
+      aspect-ratio: 16 / 9;
+    }
+  </style>
+  <script>
+    function updateCarImage() {
+      const color = document.getElementById('wrapColor').value;
+      const img = document.getElementById('carImage');
+      const colorMap = {
+        grey: 'https://s-media-cache-ak0.pinimg.com/originals/8f/04/c7/8f04c738cc72993bd2b18a2326015be3.jpg',
+        blue: 'https://i.pinimg.com/originals/df/4d/31/df4d319a1c3dab991cac3a54d227f547.jpg',
+        red: 'https://images6.alphacoders.com/892/892010.jpg',
+        white: 'https://pictures.topspeed.com/IMG/crop/201104/maserati-granturismo-10_1600x0w.jpg'
+      };
+      img.style.opacity = 0;
+      setTimeout(() => {
+        img.src = colorMap[color];
+        img.onload = () => img.style.opacity = 1;
+      }, 300);
+    }
+
+    function updatePrice() {
+      let total = 15000000;
+      let breakdown = '<p>Base Price: ₹1,50,00,000</p>';
+      document.querySelectorAll('input[type=checkbox]:checked, input[type=radio]:checked').forEach(input => {
+        const label = input.parentElement.textContent.trim();
+        const price = parseInt(input.dataset.price || 0);
+        total += price;
+        breakdown += `<p>+ ${label}: ₹${price.toLocaleString()}</p>`;
+      });
+      document.getElementById('priceBreakdown').innerHTML = breakdown + `<hr class='my-2'><p class='text-xl font-bold text-indigo-400'>Total: ₹${total.toLocaleString()}</p>`;
+    }
+
+    function toggleAllCheckboxes(state) {
+      document.querySelectorAll('input[type=checkbox]').forEach(input => {
+        input.checked = state;
+      });
+      updatePrice();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('input[type=checkbox], input[type=radio]').forEach(input => {
+        input.addEventListener('change', updatePrice);
+      });
+      updatePrice();
+    });
+  </script>
+</head>
+<body class="bg-gray-900 text-white">
+  <div class="p-6">
+    <h1 class="text-4xl font-bold text-center mb-8">Customize Your Maserati</h1>
+
+ 
+    <div class="w-full flex justify-center items-center mb-8">
+      <div class="max-w-4xl w-full overflow-hidden rounded-xl shadow-lg">
+        <a href="https://cdn.pixabay.com/photo/2020/05/06/08/10/maserati-5134426_960_720.jpg" target="_blank">
+          <img id="carImage" src="https://freepngimg.com/thumb/symbol/87051-logo-brand-maserati-car-free-transparent-image-hq.png" alt="Maserati Preview" />
+        </a>
+      </div>
+    </div>
+
+    <form class="max-w-6xl mx-auto bg-gray-800 p-10 rounded-xl space-y-12 border border-indigo-400 shadow-xl">
+
+      <div>
+        <h2 class="text-2xl font-bold mb-4 text-indigo-400">🎨 Wrap Color</h2>
+        <select id="wrapColor" onchange="updateCarImage()" class="w-full p-3 rounded bg-gray-900 text-white border border-gray-600">
+          <option value="grey">Metallic Grey</option>
+          <option value="blue">Royal Blue</option>
+          <option value="red">Passion Red</option>
+          <option value="white">Pearl White</option>
+        </select>
+      </div>
+
+ 
+      <div>
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-2xl font-bold text-indigo-400">⚙️ Performance & Exterior</h2>
+          <div class="space-x-2">
+            <button type="button" onclick="toggleAllCheckboxes(true)" class="bg-indigo-500 hover:bg-indigo-600 text-sm px-4 py-2 rounded">Select All</button>
+            <button type="button" onclick="toggleAllCheckboxes(false)" class="bg-gray-700 hover:bg-gray-600 text-sm px-4 py-2 rounded">Deselect All</button>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <label class="flex items-center space-x-2"><input type="checkbox" data-price="130000" /> <span>Sport Exhaust</span></label>
+          <label class="flex items-center space-x-2"><input type="checkbox" data-price="110000" /> <span>Red Brake Calipers</span></label>
+          <label class="flex items-center space-x-2"><input type="checkbox" data-price="140000" /> <span>Blackout Package</span></label>
+          <label class="flex items-center space-x-2"><input type="checkbox" data-price="95000" /> <span>LED Matrix Lights</span></label>
+          <label class="flex items-center space-x-2"><input type="checkbox" data-price="100000" /> <span>Racing Diffuser</span></label>
+          <label class="flex items-center space-x-2"><input type="checkbox" data-price="120000" /> <span>Wide Alloy Rims</span></label>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold mb-4 text-indigo-400">🛋️ Interior Package</h2>
+        <div class="space-y-3">
+          <label class="flex items-center space-x-2"><input type="radio" name="interior" data-price="80000" /> <span>White Leather + Ambient Glow</span></label>
+          <label class="flex items-center space-x-2"><input type="radio" name="interior" data-price="95000" /> <span>Red Stitching Alcantara</span></label>
+          <label class="flex items-center space-x-2"><input type="radio" name="interior" data-price="105000" /> <span>Jet Black Suede with Carbon Accents</span></label>
+        </div>
+      </div>
+
+      <div id="priceBreakdown" class="bg-gray-900 p-6 mt-10 rounded-lg border border-indigo-400 text-white text-md">
+    
+      </div>
+
+      <div class="text-center pt-6">
+        <a href="customerform.html" class="bg-yellow-500 hover:bg-yellow-600 text-white px-10 py-4 rounded-full text-xl font-semibold shadow-lg inline-block">
+          Submit Customization
+        </a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
